@@ -576,7 +576,7 @@ body.bubble-minimal .bot .msg-bubble{background:transparent !important;border:2p
 .menu-dots-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.32rem .7rem;font-size:1.1rem;color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:2px;line-height:1;}
 .menu-dots-btn:hover{color:var(--text);border-color:var(--accent);}
 .menu-dots-btn.active{background:var(--accent);color:white;border-color:var(--accent);}
-.tool-menu{display:none;position:absolute;top:60px;right:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.4rem;z-index:30;box-shadow:0 8px 30px rgba(0,0,0,.4);min-width:180px;animation:fadeUp .15s ease;}
+.tool-menu{display:none;position:absolute;top:60px;right:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.4rem;z-index:30;box-shadow:0 8px 30px rgba(0,0,0,.4);min-width:180px;animation:fadeUp .15s ease;max-height:calc(100vh - 76px);max-height:calc(100dvh - 76px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .tool-menu.open{display:flex;flex-direction:column;}
 .tool-menu-item{background:none;border:none;border-radius:9px;padding:.65rem .9rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;gap:.7rem;-webkit-tap-highlight-color:transparent;}
 .tool-menu-item:hover{background:var(--surface2);}
@@ -811,6 +811,7 @@ body.bubble-minimal .bot .msg-bubble{background:transparent !important;border:2p
       <div class="divider"><span data-key="or">o</span></div>
       <button class="btn btn-ghost" onclick="doAnon()" data-key="btnAnon">🕶️ Entrar anónimamente</button>
     </div>
+    <button class="btn btn-ghost" style="margin-top:.6rem;font-size:.78rem;opacity:.75;" onclick="openPrivacyNotice()" data-key="btnPrivacyLanding">🛡️ Ver aviso de privacidad</button>
   </div>
 </div>
 
@@ -826,6 +827,7 @@ body.bubble-minimal .bot .msg-bubble{background:transparent !important;border:2p
       <div class="field"><label data-key="lblPass">Contraseña</label><input type="password" id="signin-pass" placeholder="••••••••" autocomplete="off" onkeydown="if(event.key==='Enter')doSignIn()"></div>
       <button class="btn btn-primary" style="width:100%;margin-top:.35rem;" onclick="doSignIn()" data-key="btnEnter">Entrar</button>
       <div class="auth-footer"><span data-key="noAccount">¿No tienes cuenta?</span> <a onclick="showScreen('signup')" data-key="signupLink">Regístrate</a></div>
+      <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:.9rem;line-height:1.5;" data-key="noRecoveryNote">💾 Recuerda bien tu usuario y contraseña — no guardamos tus datos en ningún servidor, así que no hay forma de recuperarlos si los olvidas.</div>
     </div>
   </div>
 </div>
@@ -843,6 +845,7 @@ body.bubble-minimal .bot .msg-bubble{background:transparent !important;border:2p
       <div class="field"><label data-key="lblPass2">Confirmar contraseña</label><input type="password" id="signup-pass2" placeholder="••••••••" autocomplete="off" onkeydown="if(event.key==='Enter')doSignUp()"></div>
       <button class="btn btn-primary" style="width:100%;margin-top:.35rem;" onclick="doSignUp()" data-key="btnRegister">Registrarme</button>
       <div class="auth-footer"><span data-key="hasAccount">¿Ya tienes cuenta?</span> <a onclick="showScreen('signin')" data-key="signinLink">Inicia sesión</a></div>
+      <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:.9rem;line-height:1.5;" data-key="noRecoveryNoteSignup">💾 Guarda bien tu usuario y contraseña en un lugar seguro — no tenemos un servidor donde recuperarlos, así que si los olvidas, se pierden junto con tus datos.</div>
     </div>
   </div>
 </div>
@@ -2358,6 +2361,9 @@ const T={
     lblUser:'Usuario',lblPass:'Contraseña',lblPass2:'Confirmar contraseña',
     btnEnter:'Entrar',btnRegister:'Registrarme',
     noAccount:'¿No tienes cuenta?',signupLink:'Regístrate',hasAccount:'¿Ya tienes cuenta?',signinLink:'Inicia sesión',
+    btnPrivacyLanding:'🛡️ Ver aviso de privacidad',
+    noRecoveryNote:'💾 Recuerda bien tu usuario y contraseña — no guardamos tus datos en ningún servidor, así que no hay forma de recuperarlos si los olvidas.',
+    noRecoveryNoteSignup:'💾 Guarda bien tu usuario y contraseña en un lugar seguro — no tenemos un servidor donde recuperarlos, así que si los olvidas, se pierden junto con tus datos.',
     tabChats:'Chats',tabDiary:'Diario',newChat:'Nuevo chat',chatsLabel:'Chats',logout:'🚪 Salir',
     online:'En línea — aquí para ti',
     emptyTitle:'¿Cómo te sientes hoy?',emptySub:'Elige una opción o escribe lo que sientes.',
@@ -2475,6 +2481,9 @@ const T={
     lblUser:'Username',lblPass:'Password',lblPass2:'Confirm password',
     btnEnter:'Sign in',btnRegister:'Register',
     noAccount:"Don't have an account?",signupLink:'Sign up',hasAccount:'Already have an account?',signinLink:'Sign in',
+    btnPrivacyLanding:'🛡️ View privacy notice',
+    noRecoveryNote:"💾 Remember your username and password carefully — we don't store your data on any server, so there's no way to recover it if you forget it.",
+    noRecoveryNoteSignup:"💾 Save your username and password somewhere safe — we don't have a server to recover them from, so if you forget them, they're lost along with your data.",
     tabChats:'Chats',tabDiary:'Journal',newChat:'New chat',chatsLabel:'Chats',logout:'🚪 Log out',
     online:'Online — here for you',
     emptyTitle:'How are you feeling today?',emptySub:'Pick an option or type what you feel.',
@@ -2592,6 +2601,9 @@ const T={
     lblUser:'Utilisateur',lblPass:'Mot de passe',lblPass2:'Confirmer le mot de passe',
     btnEnter:'Entrer',btnRegister:"S'inscrire",
     noAccount:'Pas de compte?',signupLink:"S'inscrire",hasAccount:'Déjà un compte?',signinLink:'Se connecter',
+    btnPrivacyLanding:'🛡️ Voir l\'avis de confidentialité',
+    noRecoveryNote:"💾 Retiens bien ton nom d'utilisateur et ton mot de passe — nous ne stockons pas tes données sur un serveur, donc impossible de les récupérer si tu les oublies.",
+    noRecoveryNoteSignup:"💾 Garde ton nom d'utilisateur et ton mot de passe en lieu sûr — nous n'avons pas de serveur pour les récupérer, donc si tu les oublies, ils sont perdus avec tes données.",
     tabChats:'Chats',tabDiary:'Journal',newChat:'Nouveau chat',chatsLabel:'Chats',logout:'🚪 Déconnexion',
     online:'En ligne — ici pour toi',
     emptyTitle:'Comment tu te sens aujourd\'hui?',emptySub:'Choisis une option ou écris ce que tu ressens.',
