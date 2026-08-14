@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.safespace.ianamaro",
+        "sha256_cert_fingerprints": ["93:1E:EB:CD:9F:F0:4B:8A:B8:39:72:70:06:DA:E2:D5:C8:E6:15:D7:B3:4A:6B:A7:EF:E1:B7:F8:B4:17:67:A0"]
+      }
+    }]
