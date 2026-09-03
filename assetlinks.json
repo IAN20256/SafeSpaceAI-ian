@@ -1,8 +1,8 @@
 [{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "com.safespace.ianamaro",
-        "sha256_cert_fingerprints": ["93:1E:EB:CD:9F:F0:4B:8A:B8:39:72:70:06:DA:E2:D5:C8:E6:15:D7:B3:4A:6B:A7:EF:E1:B7:F8:B4:17:67:A0"]
-      }
-    }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.safespace.ianamaro",
+    "sha256_cert_fingerprints": ["C1:42:72:09:6B:0B:64:94:B9:FD:93:04:29:36:FF:EA:80:F4:5A:F5:A8:86:13:89:C2:A4:88:10:51:72:1F:38"]
+  }
+}]
